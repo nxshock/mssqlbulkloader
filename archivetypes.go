@@ -9,6 +9,7 @@ type ArchiveType int
 const (
 	AutoDetectArchiveType ArchiveType = iota
 	Zip
+	Zstd
 )
 
 type ArchiveProcessor interface {
@@ -21,6 +22,8 @@ func (ft ArchiveType) MarshalText() (text []byte, err error) {
 		return []byte("auto"), nil
 	case Zip:
 		return []byte("zip"), nil
+	case Zstd:
+		return []byte("zstd"), nil
 	}
 
 	return nil, fmt.Errorf("unknown type id = %d", ft)
@@ -31,6 +34,8 @@ func (ft ArchiveType) Open() (ArchiveProcessor, error) {
 	case AutoDetectArchiveType:
 	case Zip:
 		return new(ZipReader), nil
+	case Zstd:
+		return new(ZstdReader), nil
 	}
 
 	return nil, fmt.Errorf("unknown type id = %d", ft)
@@ -43,6 +48,9 @@ func (ft *ArchiveType) UnmarshalText(text []byte) error {
 		return nil
 	case "zip":
 		*ft = Zip
+		return nil
+	case "zstd":
+		*ft = Zstd
 		return nil
 	}
 

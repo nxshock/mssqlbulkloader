@@ -10,6 +10,7 @@ require (
 	github.com/urfave/cli v1.22.12
 	github.com/xuri/excelize/v2 v2.7.0
 	golang.org/x/text v0.8.0
+	github.com/klauspost/compress v1.16.5
 )
 
 require (
