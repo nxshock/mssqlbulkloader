@@ -109,6 +109,8 @@ func (r *XlsxReader) GetRow(asStrings bool) ([]any, error) {
 		args = append(args, parsedValue)
 	}
 
+	args = append(args, make([]any, r.options.fieldCount()-len(args))...)
+
 	return args, nil
 }
 

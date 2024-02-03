@@ -29,6 +29,10 @@ func TestXlsxReaderBasic(t *testing.T) {
 	assert.Equal(t, []any{"7710146208", nil, nil, "99386901", "99386901", "304722813269", "TSENTRALNYY TELEGRAF", "780000334079", "780000334079", "10432641", t1, t2, 50.00, 0.80, 49.20, "553691******1214", "026094", "D", "MC OTHER"}, row)
 
 	row, err = xlsxReader.GetRow(false)
+	assert.NoError(t, err)
+	assert.Len(t, row, 19)
+
+	_, err = xlsxReader.GetRow(false)
 	assert.Equal(t, io.EOF, err)
 
 	err = xlsxReader.Close()

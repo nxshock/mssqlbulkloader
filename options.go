@@ -60,3 +60,14 @@ type Options struct {
 	// Column names list
 	columnNames []string
 }
+
+func (o *Options) fieldCount() int {
+	fCount := 0
+	for i := range o.fieldsTypes {
+		if o.fieldsTypes[i] != ' ' {
+			fCount++
+		}
+	}
+
+	return fCount
+}
