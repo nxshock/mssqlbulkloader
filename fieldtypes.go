@@ -41,7 +41,7 @@ func (ft FieldType) ParseValue(reader Reader, s string) (any, error) {
 		return s, nil
 	case Integer:
 		return strconv.ParseInt(s, 10, 64)
-	case Float:
+	case Float, Money:
 		return strconv.ParseFloat(strings.ReplaceAll(s, ",", "."), 64)
 	case Date:
 		if i, ok := reader.(CustomDateParser); ok {
@@ -77,7 +77,7 @@ func (ft FieldType) SqlFieldType() string {
 	case Float:
 		return "float"
 	case Money:
-		panic("do not implemented - see https://github.com/denisenkom/go-mssqldb/issues/460") // TODO: https://github.com/denisenkom/go-mssqldb/issues/460
+		return "numeric(15, 2)" // TODO: https://github.com/denisenkom/go-mssqldb/issues/460
 	case Date:
 		return "date"
 	case Timestamp:
