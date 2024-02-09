@@ -17,7 +17,7 @@ func TestCsvReaderBasic(t *testing.T) {
 		encoding:        "win1251",
 		comma:           rune(";"[0]),
 		skipRows:        3,
-		fieldsTypes:     "s     ttffsssss",
+		fieldsTypes:     "s     ttmmsssss",
 		dateFormat:      "02.01.2006",
 		timestampFormat: "02.01.2006 15:04:05",
 		timezone:        time.Local}

@@ -14,7 +14,7 @@ func TestDbfReaderBasic(t *testing.T) {
 	assert.NoError(t, err)
 
 	options := &Options{
-		fieldsTypes: "sssssstdffsss",
+		fieldsTypes: "sssssstdmmsss",
 		timezone:    time.Local,
 		encoding:    "cp866"}
 
