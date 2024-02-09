@@ -34,7 +34,7 @@ func TestCsvReaderBasic(t *testing.T) {
 	t2 := time.Date(2023, 03, 20, 0, 0, 0, 0, time.Local)
 	assert.Equal(t, []any{"307814009186", t1, t2, 499.00, 488.52, "522598******7141", "REZE64", "Покупка", "35068281112", "307817403283"}, row)
 
-	row, err = csvReader.GetRow(false)
+	_, err = csvReader.GetRow(false)
 	assert.Equal(t, err, io.EOF)
 
 	err = csvReader.Close()
