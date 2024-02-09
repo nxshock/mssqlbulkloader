@@ -42,7 +42,9 @@ func (ft FieldType) ParseValue(reader Reader, s string) (any, error) {
 	case Integer:
 		return strconv.ParseInt(s, 10, 64)
 	case Float, Money:
-		return strconv.ParseFloat(strings.ReplaceAll(s, ",", "."), 64)
+		s = strings.ReplaceAll(s, ",", ".")
+		s = strings.ReplaceAll(s, " ", "")
+		return strconv.ParseFloat(s, 64)
 	case Date:
 		if i, ok := reader.(CustomDateParser); ok {
 			t, err := i.ParseDate(s)
