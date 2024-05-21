@@ -35,6 +35,7 @@ func newCsvReader(r io.Reader, options *Options) (*CsvReader, error) {
 	re := csv.NewReader(bufReader)
 	re.Comma = options.comma
 	re.FieldsPerRecord = len(options.fieldsTypes)
+	re.LazyQuotes = true
 
 	csvReader := &CsvReader{
 		reader:  re,

@@ -40,3 +40,37 @@ func TestCsvReaderBasic(t *testing.T) {
 	err = csvReader.Close()
 	assert.NoError(t, err)
 }
+
+func TestCsvReaderBasicQuotes(t *testing.T) {
+	f, err := os.Open("testdata/csv/9729337841_20032023_084313668.csv")
+	assert.NoError(t, err)
+
+	options := &Options{
+		encoding:        "utf8",
+		comma:           rune(";"[0]),
+		fieldsTypes:     "s             ",
+		dateFormat:      "02.01.2006",
+		timestampFormat: "02.01.2006 15:04:05",
+		timezone:        time.Local}
+
+	csvReader, err := NewCsvReader(f, options)
+	assert.NoError(t, err)
+
+	assert.Equal(t, []string{"Территориальный банк"}, csvReader.GetHeader())
+
+	row, err := csvReader.GetRow(false)
+	assert.NoError(t, err)
+
+	assert.Equal(t, []any{`ПАО "Сбербанк"`}, row)
+
+	row, err = csvReader.GetRow(false)
+	assert.NoError(t, err)
+
+	assert.Equal(t, []any{`ПАО "Сбербанк"`}, row)
+
+	_, err = csvReader.GetRow(false)
+	assert.Equal(t, err, io.EOF)
+
+	err = csvReader.Close()
+	assert.NoError(t, err)
+}
